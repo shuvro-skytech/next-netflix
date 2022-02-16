@@ -1,0 +1,33 @@
+/* Font Import */
+@import url("https://fonts.googleapis.com/css2?family=Public+Sans:wght@200;400;600;700&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+input[type="button"],
+button,
+a {
+  cursor: pointer;
+}
+input,
+button,
+a {
+  outline: 0;
+  border: none;
+}
+
+html,
+body {
+  font-family: "Public Sans", sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
