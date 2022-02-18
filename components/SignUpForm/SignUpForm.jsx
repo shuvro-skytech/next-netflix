@@ -2,24 +2,51 @@ import { useState } from "react";
 import { FaChevronRight } from "react-icons/fa";
 import { BiX } from "react-icons/bi";
 import styles from "./SignUpForm.module.css";
+import axios from "axios";
+import { toast } from "react-toastify";
 
-const SignUpForm = ({ changeFormHandler }) => {
+const SignUpForm = ({ changeFormHandler, email }) => {
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [_email, setEmail] = useState(email);
   const [password, setPassword] = useState("");
 
-  const onClickHandler = (e) => {
+  /* Toast Config */
+  const toastConfig = {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  };
+
+  const onClickHandler = async (e) => {
     e.preventDefault();
+    await axios
+      .post(`/api/user/register`, {
+        name,
+        _email,
+        password,
+      })
+      .then((response) => {
+        console.log(response.data);
+        toast.success("User Created Succesfully!", toastConfig);
+      })
+      .catch((err) => {
+        toast.error(err.message, toastConfig);
+      });
   };
 
   return (
     <div className={styles.formContainer}>
       <div className={styles.formInfo}>
-        <h3 className={styles.heading}>Sign In</h3>
-        <span onClick={(e) => changeFormHandler("get-started")}>
+        <h3 className={styles.heading}>Sign Up</h3>
+        <span onClick={(e) => changeFormHandler("get-started", _email)}>
           <BiX size={28} />
         </span>
       </div>
+
       <input
         className={styles.inputField}
         type="text"
@@ -33,7 +60,7 @@ const SignUpForm = ({ changeFormHandler }) => {
         type="email"
         name="email"
         placeholder="Email Address"
-        value={email}
+        value={_email}
         onChange={(e) => setEmail(e.target.value)}
       />
       <input
@@ -50,10 +77,12 @@ const SignUpForm = ({ changeFormHandler }) => {
           <FaChevronRight />
         </span>
       </button>
-
       <p className={styles.additionalText}>
         Already have an account?
-        <span className="" onClick={(e) => changeFormHandler("sign-in")}>
+        <span
+          className=""
+          onClick={(e) => changeFormHandler("sign-in", _email)}
+        >
           Sign In now.
         </span>
       </p>

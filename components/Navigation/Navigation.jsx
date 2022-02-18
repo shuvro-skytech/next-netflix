@@ -3,7 +3,7 @@ import Link from "next/link";
 import Logo from "../../public/images/logo.png";
 import styles from "./Navigation.module.css";
 
-const Navigation = ({ changeFormHandler }) => {
+const Navigation = ({ changeFormHandler, email }) => {
   return (
     <div className={styles.navigationContainer}>
       <Link href="/" passHref>
@@ -15,7 +15,7 @@ const Navigation = ({ changeFormHandler }) => {
         className={styles.signInBtn}
         type="button"
         value="sign-in"
-        onClick={(e) => changeFormHandler("sign-in")}
+        onClick={(e) => changeFormHandler("sign-in", email)}
       />
     </div>
   );

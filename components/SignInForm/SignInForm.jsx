@@ -3,9 +3,9 @@ import { FaChevronRight } from "react-icons/fa";
 import { BiX } from "react-icons/bi";
 import styles from "./SignInForm.module.css";
 
-const SignInForm = ({ changeFormHandler }) => {
+const SignInForm = ({ changeFormHandler, email }) => {
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [_email, setEmail] = useState(email);
   const [password, setPassword] = useState("");
 
   const onClickHandler = (e) => {
@@ -16,7 +16,7 @@ const SignInForm = ({ changeFormHandler }) => {
     <div className={styles.formContainer}>
       <div className={styles.formInfo}>
         <h3 className={styles.heading}>Sign In</h3>
-        <span onClick={(e) => changeFormHandler("get-started")}>
+        <span onClick={(e) => changeFormHandler("get-started", _email)}>
           <BiX size={28} />
         </span>
       </div>
@@ -25,7 +25,7 @@ const SignInForm = ({ changeFormHandler }) => {
         type="email"
         name="email"
         placeholder="Email Address"
-        value={email}
+        value={_email}
         onChange={(e) => setEmail(e.target.value)}
       />
       <input
@@ -45,7 +45,10 @@ const SignInForm = ({ changeFormHandler }) => {
 
       <p className={styles.additionalText}>
         New to Netflix?
-        <span className="" onClick={(e) => changeFormHandler("sign-up")}>
+        <span
+          className=""
+          onClick={(e) => changeFormHandler("sign-up", _email)}
+        >
           Sign up now.
         </span>
       </p>

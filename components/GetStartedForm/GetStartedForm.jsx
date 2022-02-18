@@ -2,13 +2,8 @@ import { useState } from "react";
 import { FaChevronRight } from "react-icons/fa";
 import styles from "./GetStartedForm.module.css";
 
-const GetStartedForm = ({ changeFormHandler }) => {
-  const [email, setEmail] = useState("");
-
-  const onClickHandler = (e) => {
-    e.preventDefault();
-    changeFormHandler("sign-up");
-  };
+const GetStartedForm = ({ changeFormHandler, email }) => {
+  const [_email, setEmail] = useState(email);
 
   return (
     <div className={styles.formContainer}>
@@ -27,10 +22,13 @@ const GetStartedForm = ({ changeFormHandler }) => {
           type="text"
           name="email"
           placeholder="Email Address"
-          value={email}
+          value={_email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <button className={styles.getStarted} onClick={onClickHandler}>
+        <button
+          className={styles.getStarted}
+          onClick={(e) => changeFormHandler("sign-up", _email)}
+        >
           Get Started
           <span>
             <FaChevronRight />

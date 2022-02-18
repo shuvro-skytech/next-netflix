@@ -7,25 +7,26 @@ import styles from "./LandingBanner.module.css";
 
 const LandingBanner = () => {
   const [formState, setFormState] = useState("get-started");
+  const [email, setEmail] = useState("");
 
-  const changeFormHandler = (expectedFormState) => {
+  const changeFormHandler = (expectedFormState, email) => {
     setFormState(expectedFormState);
+    setEmail(email);
+    console.log(email);
   };
-
-  console.log(formState);
 
   return (
     <div className={styles.container}>
-      <Navigation changeFormHandler={changeFormHandler} />
+      <Navigation changeFormHandler={changeFormHandler} email={email} />
       <div className={styles.content}>
         {formState === "get-started" && (
-          <GetStartedForm changeFormHandler={changeFormHandler} />
+          <GetStartedForm changeFormHandler={changeFormHandler} email={email} />
         )}
         {formState === "sign-up" && (
-          <SignUpForm changeFormHandler={changeFormHandler} />
+          <SignUpForm changeFormHandler={changeFormHandler} email={email} />
         )}
         {formState === "sign-in" && (
-          <SignInForm changeFormHandler={changeFormHandler} />
+          <SignInForm changeFormHandler={changeFormHandler} email={email} />
         )}
       </div>
     </div>
